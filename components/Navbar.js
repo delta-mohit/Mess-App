@@ -48,6 +48,9 @@ const Navbar = ({details}) => {
               <li>
                 <a>My Profile</a>
               </li>
+              <li>
+                <a>Change Menu (Only for Admin)</a>
+              </li>
             </ul>
           </div>
           <a className="text-xl font-semibold lg:block hidden">{pageTitle}</a>
@@ -58,20 +61,29 @@ const Navbar = ({details}) => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Full Menu</a>
-            </li>
-            <li>
-              <a>Feedback</a>
-            </li>
-            <li>
-              <a>Student Info</a>
-            </li>
-            <li>
-              <a>Mess Staff</a>
-            </li>
-            <li>
-              <a>Food Item Suggestion</a>
-            </li>
+                <a>Notice Board</a>
+              </li>
+              <li>
+                <a>Full Menu</a>
+              </li>
+              <li>
+                <a>Feedback</a>
+              </li>
+              <li>
+                <a>Student Info</a>
+              </li>
+              <li>
+                <a>Mess Staff</a>
+              </li>
+              <li>
+                <a>Food Item Suggestion</a>
+              </li>
+              <li>
+                <a>My Profile</a>
+              </li>
+              <li>
+                <a>Change Menu (Only for Admin)</a>
+              </li>
           </ul>
         </div>
         <div className="navbar-end">
