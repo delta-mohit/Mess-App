@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import Image from "next/image";
+import rphallImage from "@/public/static/images/rphall.jpg"
 import SignupForm from '@/components/signup'
 const Signup = () => {
   const [loading, setloading] = useState(false);
@@ -12,7 +13,7 @@ const Signup = () => {
         </p>
         <div className="flex flex-col justify-center mb-2 w-4/5 mx-auto">
           <Image
-            src="/static/images/rphall.jpg"
+            src={rphallImage}
             alt="RP Hall"
             width={400}
             height={400}
