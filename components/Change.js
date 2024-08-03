@@ -126,6 +126,7 @@ const Change = () => {
             name="inputField"
             placeholder="Enter Item"
             className="input input-bordered w-2/3 max-w-xs"
+            autoComplete="off" 
           />
           <button className="btn btn-active btn-accent text-white">
             ADD ITEM

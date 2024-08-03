@@ -1,7 +1,9 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Image from "next/image";
 import SignupForm from '@/components/signup'
 const Signup = () => {
+  const [loading, setloading] = useState(false);
   return (
       <div className="w-full sm:w-1/2 mx-auto">
         <p className="mt-14 mb-2 font-medium text-center text-2xl text-black">Welcome to</p>
@@ -16,7 +18,7 @@ const Signup = () => {
             height={400}
             className="rounded-lg mx-auto"
           />
-          <SignupForm/>
+          <SignupForm loading={loading} setloading={(e:any)=>setloading(e)}/>
         </div>
       </div>
   );

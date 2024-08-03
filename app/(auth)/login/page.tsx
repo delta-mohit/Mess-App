@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import LoginForm from "@/components/loginForm";
+import LoginForm from "@/components/LoginForm";
 const Login = () => {
   return (
       <div className="w-full sm:w-1/2 mx-auto">
@@ -14,6 +14,7 @@ const Login = () => {
             alt="RP Hall"
             width={400}
             height={400}
+            priority={true}
             className="rounded-lg mx-auto"
           />
           <LoginForm/>

@@ -47,8 +47,8 @@ const Feedback = () => {
       <Navbar details={details} />
       {/* Select the Day */}
       <div className="flex flex-col justify-center items-center mt-12 space-y-8">
-        <details className="dropdown w-3/4" ref={detailsRef}>
-          <summary className="btn m-1 w-full bg-purple-500 text-white font-bold flex justify-center items-center space-x-2 cursor-pointer">
+       <details className="dropdown w-3/4" ref={detailsRef}>
+         <summary className="btn m-1 w-full bg-purple-500 text-white font-bold flex justify-center items-center space-x-2 cursor-pointer">
             <RxDropdownMenu className="h-5 w-5" />
             <span>{selectedDay}</span>
           </summary>

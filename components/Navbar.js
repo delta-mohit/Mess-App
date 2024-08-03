@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link'
 
 const Navbar = ({details}) => {
   const pageTitle = `${details.message} ${details.name} `;
@@ -28,28 +29,28 @@ const Navbar = ({details}) => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-2xl border-2 z-[1] mt-3 w-72 p-2 shadow space-y-4"
             >
               <li>
-                <a>Notice Board</a>
+                <Link href="/notice-board" >Notice Board</Link>
               </li>
               <li>
-                <a>Full Menu</a>
+                <Link href="/full-menu">Full Menu</Link>
               </li>
               <li>
-                <a>Feedback</a>
+                <Link href="/feedback">Feedback</Link>
               </li>
               <li>
-                <a>Student Info</a>
+                <Link href="/boarder-info">Student Info</Link>
               </li>
               <li>
-                <a>Mess Staff</a>
+                <Link href="/staff">Mess Staff</Link>
               </li>
               <li>
-                <a>Food Item Suggestion</a>
+                <Link href="/suggestion">Food Item Suggestion</Link>
               </li>
               <li>
-                <a>My Profile</a>
+                <Link href="/profile">My Profile</Link>
               </li>
               <li>
-                <a>Change Menu (Only for Admin)</a>
+                <Link href="/change-menu">Change Menu (Only for Admin)</Link>
               </li>
             </ul>
           </div>
@@ -61,35 +62,35 @@ const Navbar = ({details}) => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-                <a>Notice Board</a>
+                <Link href="/notice-board" >Notice Board</Link>
               </li>
               <li>
-                <a>Full Menu</a>
+                <Link href="/full-menu">Full Menu</Link>
               </li>
               <li>
-                <a>Feedback</a>
+                <Link href="/feedback">Feedback</Link>
               </li>
               <li>
-                <a>Student Info</a>
+                <Link href="/boarder-info">Student Info</Link>
               </li>
               <li>
-                <a>Mess Staff</a>
+                <Link href="/staff">Mess Staff</Link>
               </li>
               <li>
-                <a>Food Item Suggestion</a>
+                <Link href="/suggestion">Food Item Suggestion</Link>
               </li>
               <li>
-                <a>My Profile</a>
+                <Link href="/profile">My Profile</Link>
               </li>
               <li>
-                <a>Change Menu (Only for Admin)</a>
+                <Link href="/change-menu">Change Menu (Only for Admin)</Link>
               </li>
           </ul>
         </div>
         <div className="navbar-end">
           <div className="avatar h-10 w-10">
             <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
             </div>
           </div>
         </div>
