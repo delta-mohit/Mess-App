@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/loginForm";
 const Login = () => {
   return (
       <div className="w-full sm:w-1/2 mx-auto">
