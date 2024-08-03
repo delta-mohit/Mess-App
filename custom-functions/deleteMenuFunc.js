@@ -1,18 +1,44 @@
 "use server";
-import axios from "axios"
-export default async function deleteMenu(id) {
+import axios from "axios";
+import {
+  accessToken,
+  refreshToken,
+} from "@/custom-functions/getTokenFromCookies";
+import updateToken from "./updateTokenWhenExpired";
+async function deleteFunc(id) {
+  let response;
   try {
     const requestOptions = {
       headers: {
-        Authorization: "Bearer xyz",
+        Authorization: `Bearer ${accessToken}`,
       },
     };
-    await axios.delete(
+    response = await axios.delete(
       `https://rp-mess-website-backend.vercel.app/api/menu?id=${id}`,
       requestOptions
     );
     console.log("Post deleted:", id);
   } catch (e) {
     console.log("Error deleting post:", e);
+  }
+
+  return response;
+}
+
+export default async function deleteMenu(id) {
+  let response;
+  try {
+    response = await deleteFunc(id);
+  } catch (e) {
+    console.log("Error in deleting menu");
+  }
+
+  if (response.status === 401) {
+    updateToken();
+    try {
+      response = await deleteFunc(id);
+    } catch (e) {
+      console.log("Error in deleting menu");
+    }
   }
 }

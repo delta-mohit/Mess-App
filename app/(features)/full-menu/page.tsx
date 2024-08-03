@@ -7,6 +7,7 @@ const FullMenu = () =>{
         <Navbar details={{name: "", message: "See Full Menu"}}></Navbar>
         <Fullmenu></Fullmenu>
         </div>
+       
     );
 };
 

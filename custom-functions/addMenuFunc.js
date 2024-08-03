@@ -1,10 +1,13 @@
 "use server";
 import axios from "axios";
-export default async function addMenu(item, day, time) {
-
-  console.log(item + ": " + day + ": " + time);
+import {
+  accessToken,
+  refreshToken,
+} from "@/custom-functions/getTokenFromCookies";
+async function add(item, day, time) {
+  let response;
   try {
-    const response = await axios.post(
+    response = await axios.post(
       "https://rp-mess-website-backend.vercel.app/api/menu",
       {
         day: day.toString().toUpperCase(),
@@ -13,13 +16,30 @@ export default async function addMenu(item, day, time) {
       },
       {
         headers: {
-          Authorization: "Bearer xyz",
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
-    console.log(response.data); // Log the entire response data
   } catch (e) {
     console.error("Error posting menu:", e.message); // Log the error message
-    return;
+  }
+  return response;
+}
+export default async function addMenu(item, day, time) {
+  let response;
+  try {
+    response = await add(item, day, time);
+  } catch (e) {
+    console.log("Error coming");
+  }
+  if (response.status === 401) {
+    //call updateToken function so that updated token will be store in cookies
+    updateToken();
+    //adding menu item after updating the accesstoken using refresh token
+    try {
+      response = await add(item, day, time);
+    } catch (e) {
+      console.log("Error coming");
+    }
   }
 }
