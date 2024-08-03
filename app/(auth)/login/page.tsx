@@ -4,8 +4,8 @@ import rphallImage from "@/public/static/images/rphall.jpg"
 import LoginForm from "@/components/loginForm";
 const Login = () => {
   return (
-      <div className="w-full sm:w-1/2 mx-auto">
-        <p className="mt-14 mb-2 font-medium text-center text-2xl text-black">Welcome to</p>
+      <div className="max-h-screen w-full sm:w-1/2 mx-auto">
+        <p className="mt-10 mb-1 font-medium text-center text-2xl text-black">Welcome to</p>
         <p className="text-center text-4xl font-bold mb-10 text-purple-600">
           RP Hall MESS
         </p>

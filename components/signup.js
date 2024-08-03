@@ -120,9 +120,9 @@ const SignupForm = ({loading, setloading}) => {
             Already have an Account??{" "}
             <Link
               href="/login"
-              className="font-medium text-primary-600 hover:underline dark:text-primary-500 ml-2"
+              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
-              Log In Here
+              Click Here to Log In
             </Link>
           </p>
         </div>

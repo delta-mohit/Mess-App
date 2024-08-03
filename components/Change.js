@@ -116,7 +116,7 @@ const Change = () => {
         </div>
 
         <div className="flex justify-center">
-          <button className="btn btn-info text-slate-200 text-lg" onClick={()=>getData()}>Display Menu</button>
+          <button className="btn btn-info text-white text-lg" onClick={()=>getData()}>Display Menu</button>
         </div>
 
         {/* Add an new item */}
