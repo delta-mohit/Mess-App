@@ -1,0 +1,1 @@
+export const baseURL = 'https://rp-mess-website-backend.vercel.app';

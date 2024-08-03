@@ -1,53 +1,75 @@
-"use client";
-import { React, useRef, useState } from "react";
-import { FaLock, FaIdBadge } from "react-icons/fa";
-import getUserInfo from "@/custom-functions/getUserInfo";
-import { useRouter } from "next/navigation";
+"use client"
+import React from "react";
+import { FaLock, FaIdBadge, FaRegUser } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter, useState } from "next/navigation";
+import registerUser from "@/custom-functions/registerTheUser";
 import toast, { Toaster } from "react-hot-toast";
 
-const LoginForm = () => {
+const SignupForm = ({loading, setloading}) => {
+  console.log(loading);
   const router = useRouter();
-  const rollNumber = useRef();
-  const password = useRef();
-  const handleEnteredInfo = (e) => {
+  const handleEnteredInfo = async (e) => {
+    setloading(true);
     e.preventDefault();
-    isUserValid(rollNumber.current.value, password.current.value);
-    rollNumber.current.value = "";
-    password.current.value = "";
-   
-  };
-  const [loading, setloading] = useState(false);
-  const isUserValid = async (r, p) => {
-    setloading(true);// to show loader on the Sign In button because getUserInfor and checking will take time
-    const check = await getUserInfo(r, p);
-    if (check) {
+    let name = e.target[0].value;
+    let rollNumber = e.target[1].value;
+    let password = e.target[2].value;
+    e.target[0].value = "";
+    e.target[1].value = "";
+    e.target[2].value = "";
+    const status = await registerUser(name, rollNumber, password);
+    if (status === 201) {
       router.push("/today-menu");
     } else {
-      console.log("User Crediantials are wrong. Please enter again");
-      toast.error("Wrong Crediantials");
       setloading(false);
+      if (status == 409) {
+        //user already registered
+        toast.error("You are already registered, please Login instead");
+      } else if (status == 404) {
+        //user is from outside the organisation
+        toast.error("This Roll Number is not allowed to access RP Mess Services");
+      } else {
+        toast.error("Unknown Error Occured, Try again later");
+      }
     }
   };
+
   return (
     <div className="flex flex-col items-center justify-center mx-auto lg:py-0 w-full">
       <div className="w-full bg-white dark:bg-white">
         <div className="p-2 space-y-8 mt-6">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black text-center mx-auto">
-            Log in to your account
+            Create an account here
           </h1>
-          <form
-            className="space-y-8"
-            onSubmit={(e) => {
-              handleEnteredInfo(e);
-            }}
-          >
+          <form className="space-y-8" onSubmit={(e) => handleEnteredInfo(e)}>
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-1 text-sm font-medium text-gray-900 dark:text-black"
+              >
+                Name <span className="text-red-500">*</span>
+              </label>
+              <div className="flex items-center bg-gray-50 dark:bg-white rounded-lg p-2.5 border border-gray-300 dark:border-gray-600">
+                <FaRegUser className="text-gray-400 dark:text-gray-400 mr-2" />
+                <input
+                  type="name"
+                  name="name"
+                  id="name"
+                  className="bg-transparent outline-none flex-1 text-purple-600 dark:text-purple-600"
+                  placeholder="Enter your Name"
+                  autoComplete="off"
+                  required
+                />
+              </div>
+            </div>
+
             <div>
               <label
                 htmlFor="roll"
                 className="block mb-1 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Your Roll No <span className="text-red-500">*</span>
+                Roll No <span className="text-red-500">*</span>
               </label>
               <div className="flex items-center bg-gray-50 dark:bg-white rounded-lg p-2.5 border border-gray-300 dark:border-gray-600">
                 <FaIdBadge className="text-gray-400 dark:text-gray-400 mr-2" />
@@ -56,13 +78,13 @@ const LoginForm = () => {
                   name="roll"
                   id="roll"
                   className="bg-transparent outline-none flex-1 text-purple-600 dark:text-purple-600"
-                  placeholder="Roll Number"
-                  required
+                  placeholder="21YY1000XX"
                   autoComplete="off"
-                  ref={rollNumber}
+                  required
                 />
               </div>
             </div>
+
             <div>
               <label
                 htmlFor="password"
@@ -79,36 +101,10 @@ const LoginForm = () => {
                   className="bg-transparent outline-none flex-1 text-purple-600 dark:text-purple-600"
                   placeholder="••••••••"
                   required
-                  ref={password}
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="remember"
-                    aria-describedby="remember"
-                    type="checkbox"
-                    className="w-4 h-4 border-2 rounded border-gray-300 bg-gray-700 accent-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:accent-purple-500"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="remember"
-                    className="text-gray-500 dark:text-black"
-                  >
-                    Remember Me
-                  </label>
-                </div>
-              </div>
-              <a
-                href="#"
-                className="text-sm font-medium text-black hover:underline dark:text-primary-500"
-              >
-                Forgot password?
-              </a>
-            </div>
+
             <button
               type="submit"
               className="w-full dark:text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
@@ -116,17 +112,17 @@ const LoginForm = () => {
               {loading ? (
                 <span className="loading loading-spinner loading-md"></span>
               ) : (
-                "Log In"
+                "Create Account"
               )}
             </button>
           </form>
           <p className="text-sm font-light text-black dark:text-black">
-            Don&apos;t have an account yet?{" "}
+            Already have an Account??{" "}
             <Link
-              href="/signup"
+              href="/login"
               className="font-medium text-primary-600 hover:underline dark:text-primary-500 ml-2"
             >
-              Sign up Here
+              Log In Here
             </Link>
           </p>
         </div>
@@ -141,4 +137,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;
