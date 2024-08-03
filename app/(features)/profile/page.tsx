@@ -11,7 +11,7 @@ const Profile = () => {
       <Navbar details={details} />
       <div>
         <div className="mt-4">
-          <img src="/rphall.jpg" alt="Profile Picture" className="h-52 w-52 mx-auto object-cover rounded-full"/>
+          <img src="/static/images/image.png" alt="Profile Picture" className="h-52 w-52 mx-auto object-cover rounded-full"/>
         </div>
         <div className="w-full space-y-8 mt-10">
           <div className="w-3/4 mx-auto shadow-xl p-2">

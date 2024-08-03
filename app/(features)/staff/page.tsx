@@ -17,7 +17,7 @@ const Messstaff = () => {
       <div className='grid grid-cols-1 justify-items-center mt-8'>
         <div className='w-3/4'>
           <div className='flex flex-col justify-center items-center shadow-xl shadow-slate-500 p-4'>
-            <img src='/image.png' className='w-3/4 h-auto'></img>
+            <img src='/static/images/image.png' className='w-3/4 h-auto'></img>
             <p className='text-center text-xl font-medium mb-4'>Prof. Mahendra Reddy Vanteru</p>
             <p>mahendra@iitkgp.ac.in</p>
           </div>

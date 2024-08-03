@@ -32,7 +32,7 @@ const Info = () => {
       <div className="card bg-base-100 w-96 shadow-lg shadow-slate-600 mx-auto mt-10">
         <figure className="px-10 pt-10">
           <img
-            src="/image.png"
+            src="/static/images/image.png"
             alt="Boarder Photo"
             className="w-full h-64 object-cover rounded-xl"
           />

@@ -12,7 +12,7 @@ const Signup = () => {
         </p>
         <div className="flex flex-col justify-center mb-2 w-4/5 mx-auto">
           <Image
-            src="/rphall.jpg"
+            src="/static/images/rphall.jpg"
             alt="RP Hall"
             width={400}
             height={400}
