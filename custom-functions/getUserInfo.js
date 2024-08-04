@@ -7,14 +7,16 @@ export default async function getUserInfo(rollNumber, password){
         rollNumber : rollNumber,
         password : password
     }
+    let code;
     try{
-        response = await axios.post(`${baseURL}/api/user/login`,data)
+        response = await axios.post(`${baseURL}/api/user/login`,data);
+        code = response.status;
     } catch(e){
-        console.log('There is some error in getting User Info from backend : ',e);
+        console.log('There is some error in getting User Info from backend');
+        code = e.response.status;
     }
-    if(response.data.success){ //if the crediantials are correct then only it returns true and this condition is true
+    if(code == 200){ //if the crediantials are correct then only it returns true and this condition is true
         await storeToken(response.data.data.token);
     }
-    return response.data.success;
-    
+    return code;
 }

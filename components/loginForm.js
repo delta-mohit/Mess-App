@@ -21,11 +21,20 @@ const LoginForm = () => {
   const isUserValid = async (r, p) => {
     setloading(true);// to show loader on the Sign In button because getUserInfor and checking will take time
     const check = await getUserInfo(r, p);
-    if (check) {
+    if (check==200) { //store token getUserInfo me ho gaya hoga so user ko aage bhej dete hai
       router.push("/today-menu");
-    } else {
+    } else if(check==404){
+      console.log("User not found");
+      toast.error("User Not Found. First Signup then Login again");
+      setloading(false);
+    }
+    else if(check==401){
       console.log("User Crediantials are wrong. Please enter again");
       toast.error("Wrong Crediantials, Try Again");
+      setloading(false);
+    }else if(check==400){
+      console.log("Invalid Request Body. Required fields: rollNumber, password");
+      toast.error("Something is missing in input, try again");
       setloading(false);
     }
   };
