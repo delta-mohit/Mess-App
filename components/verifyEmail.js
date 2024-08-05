@@ -22,7 +22,7 @@ const EmailVerification = () => {
       <main className="mt-8 px-5 sm:px-10">
         <h2 className="text-gray-700 ">Hello John Deo,</h2>
         <p className="mt-2 leading-loose text-gray-600 ">
-          Please enter the OTP which you received on <span>"User Email ID"</span>:
+          Please enter the OTP which you received on <span>&quot;User Email ID&quot;</span>:
         </p>
         <Otp></Otp>
         <button className="px-6 py-2 mt-2 text-sm font-bold tracking-wider text-white capitalize transition-colors duration-300 transform bg-orange-600 rounded-lg hover:bg-orange-500 focus:outline-none focus:ring focus:ring-orange-300 focus:ring-opacity-80">
