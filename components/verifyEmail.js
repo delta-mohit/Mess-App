@@ -41,7 +41,7 @@ const EmailVerification = () => {
         <div className="bg-gray-300/60 h-[150px] flex flex-col gap-3 justify-center items-center">
           <div className="text-center flex flex-col gap-2">
             <h1 className="text-[#365CCE] font-semibold tracking-wide text-lg">
-              If you're facing any issues,
+              If you&apos;re facing any issues,
             </h1>
             <h1 className="text-[#365CCE] font-semibold tracking-wide text-lg">
               Contact Us
