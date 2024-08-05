@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 function Otp() {
-  const [timer, setTimer] = useState(0);
-  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const [timer, setTimer] = useState(60);
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   useEffect(() => {
     let interval;
