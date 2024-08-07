@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import isOtpValid from "@/custom-functions/isOtpValid";
 import deleteCookies from "@/custom-functions/deleteCookies";
+import sendEmail from "@/custom-functions/sendEmail";
 function Otp() {
   const [timer, setTimer] = useState(60);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -22,8 +23,14 @@ function Otp() {
     }
     return () => clearInterval(interval);
   }, [timer]);
-
+  async function resendEmail() {
+    let toastID = toast.loading("Resending Email");
+    await sendEmail();
+    toast.dismiss(toastID);
+    toast.success("New Email Sent");
+  }
   const handleResend = () => {
+    resendEmail();
     setTimer(60); // reset timer to 30 seconds
     setIsButtonVisible(false);
     // Handle the resend action here
