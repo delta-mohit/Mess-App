@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import React from "react";
 import { FaLock, FaIdBadge, FaRegUser } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter, useState } from "next/navigation";
 import registerUser from "@/custom-functions/registerTheUser";
 import toast, { Toaster } from "react-hot-toast";
-
-const SignupForm = ({loading, setloading}) => {
+import sendEmail from "@/custom-functions/sendEmail";
+const SignupForm = ({ loading, setloading }) => {
   console.log(loading);
   const router = useRouter();
   const handleEnteredInfo = async (e) => {
@@ -20,7 +20,16 @@ const SignupForm = ({loading, setloading}) => {
     e.target[2].value = "";
     const status = await registerUser(name, rollNumber, password);
     if (status === 201) {
-      router.push("/today-menu");
+      //user is allow to register so redirect to verify email page
+      console.log(
+        "redirecting to verify email page from signup page because user clicked on signup button"
+      );
+      toast.promise(sendEmail(), {
+        loading: "Sending Email",
+        success: "Sent Email Successfully",
+        error: "Unable to send email",
+      }); //function call to send email
+      router.push("/verifyEmail");
     } else {
       setloading(false);
       if (status == 409) {
@@ -28,7 +37,9 @@ const SignupForm = ({loading, setloading}) => {
         toast.error("You are already registered, please Login instead");
       } else if (status == 404) {
         //user is from outside the organisation
-        toast.error("This Roll Number is not allowed to access RP Mess Services");
+        toast.error(
+          "This Roll Number is not allowed to access RP Mess Services"
+        );
       } else {
         toast.error("Unknown Error Occured, Try again later");
       }
