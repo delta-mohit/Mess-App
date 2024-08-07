@@ -24,11 +24,9 @@ const SignupForm = ({ loading, setloading }) => {
       console.log(
         "redirecting to verify email page from signup page because user clicked on signup button"
       );
-      toast.promise(sendEmail(), {
-        loading: "Sending Email",
-        success: "Sent Email Successfully",
-        error: "Unable to send email",
-      }); //function call to send email
+      let toastID = toast.loading("Sending Email...");
+      await sendEmail();
+      toast.dismiss(toastID);
       router.push("/verifyEmail");
     } else {
       setloading(false);
