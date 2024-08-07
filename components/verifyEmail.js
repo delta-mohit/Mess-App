@@ -1,22 +1,8 @@
 import React from "react";
 import Otp from "@/components/otpInput";
-import axios from "axios";
-import { baseURL } from "@/app/constants";
-import { tempToken } from "@/custom-functions/getTokenFromCookies";
+import getTempUserDetails from "@/custom-functions/getTempUserDetails";
 const EmailVerification = async () => {
-  let name = "";
-  let email = "";
-  try {
-    let response = await axios.get(`${baseURL}/api/verification/user`, {
-      headers: {
-        Authorization: `Bearer ${tempToken}`,
-      },
-    });
-    name = response.data.data.name;
-    email = response.data.data.email;
-  } catch (error) {
-    console.log(error);
-  }
+  const { name, email } = await getTempUserDetails();
   return (
     <section className="max-w-2xl mx-auto bg-white border-2 border-blue-500">
       <div className="h-[200px] bg-[#365CCE] w-full text-white flex items-center justify-center flex-col gap-5">
