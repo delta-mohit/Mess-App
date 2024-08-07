@@ -24,7 +24,7 @@ const SignupForm = ({ loading, setloading }) => {
       console.log(
         "redirecting to verify email page from signup page because user clicked on signup button"
       );
-      let toastID = toast.loading("Sending Email...");
+      let toastID = toast.loading("Sending Email for Verification");
       await sendEmail();
       toast.dismiss(toastID);
       router.push("/verifyEmail");
