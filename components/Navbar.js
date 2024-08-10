@@ -1,7 +1,7 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
-const Navbar = ({details}) => {
+const Navbar = ({ details }) => {
   const pageTitle = `${details.message} ${details.name} `;
   return (
     <>
@@ -28,8 +28,12 @@ const Navbar = ({details}) => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-2xl border-2 z-[1] mt-3 w-72 p-2 shadow space-y-4"
             >
+              {" "}
               <li>
-                <Link href="/notice-board" >Notice Board</Link>
+                <Link href="/today-menu">Today Menu</Link>
+              </li>
+              <li>
+                <Link href="/notice-board">Notice Board</Link>
               </li>
               <li>
                 <Link href="/full-menu">Full Menu</Link>
@@ -62,29 +66,32 @@ const Navbar = ({details}) => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-                <Link href="/notice-board" >Notice Board</Link>
-              </li>
-              <li>
-                <Link href="/full-menu">Full Menu</Link>
-              </li>
-              <li>
-                <Link href="/feedback">Feedback</Link>
-              </li>
-              <li>
-                <Link href="/boarder-info">Student Info</Link>
-              </li>
-              <li>
-                <Link href="/staff">Mess Staff</Link>
-              </li>
-              <li>
-                <Link href="/suggestion">Food Item Suggestion</Link>
-              </li>
-              <li>
-                <Link href="/profile">My Profile</Link>
-              </li>
-              <li>
-                <Link href="/change-menu">Change Menu (Only for Admin)</Link>
-              </li>
+              <Link href="/today-menu">Today Menu</Link>
+            </li>
+            <li>
+              <Link href="/notice-board">Notice Board</Link>
+            </li>
+            <li>
+              <Link href="/full-menu">Full Menu</Link>
+            </li>
+            <li>
+              <Link href="/feedback">Feedback</Link>
+            </li>
+            <li>
+              <Link href="/boarder-info">Student Info</Link>
+            </li>
+            <li>
+              <Link href="/staff">Mess Staff</Link>
+            </li>
+            <li>
+              <Link href="/suggestion">Food Item Suggestion</Link>
+            </li>
+            <li>
+              <Link href="/profile">My Profile</Link>
+            </li>
+            <li>
+              <Link href="/change-menu">Change Menu (Only for Admin)</Link>
+            </li>
           </ul>
         </div>
         <div className="navbar-end">

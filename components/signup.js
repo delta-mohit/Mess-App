@@ -30,6 +30,7 @@ const SignupForm = ({ loading, setloading }) => {
       router.push("/verifyEmail");
     } else {
       setloading(false);
+      console.log(status);
       if (status == 409) {
         //user already registered
         toast.error("You are already registered, please Login instead");
