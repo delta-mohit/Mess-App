@@ -1,28 +1,11 @@
 import React from "react";
-import axios from "axios";
-import { baseURL } from "@/app/constants";
 import Image from "next/image";
-import { accessToken } from "@/custom-functions/getTokenFromCookies";
-
+import getMenu from "@/custom-functions/menu/callGetMenuAPI";
 const Menu = async ({ day, timeSlot }) => {
-  let res;
-  let items = [];
-  try {
-    res = await axios.get(
-      `${baseURL}/api/menu?day=${day}&timeSlot=${timeSlot}&category=MAIN_COURSE`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-  } catch (e) {
-    console.error("Failed to fetch menu items", e);
-  }
-  items = res?.data.data;
+  let items = await getMenu(day, timeSlot);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 justify-items-center mt-8 mb-8 w-[95%] mx-auto">
-      {items.map((item, index) => (
+      {items?.map((item, index) => (
         <div key={index} className="text-center">
           <Image
             src={item.imgURL}

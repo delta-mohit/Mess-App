@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 import Menu from "@/components/menu"
+
 const page = () => {
   const details = {
       name : "userName",

@@ -3,10 +3,11 @@ import Notice from "@/components/Notice"
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
-import { accessToken } from "@/custom-functions/getTokenFromCookies";
+import { cookies } from "next/headers";
 const page = async () => {
   let response;
   let notices = [];
+  let accessToken = cookies().get('accessToken')?.value;
   try{
     response = await axios.get(`${baseURL}/api/noticeboard`,{
       headers: {
