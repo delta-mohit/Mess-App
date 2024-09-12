@@ -3,7 +3,8 @@ import React, { useRef, useState } from "react";
 import FeedbackForm from "@/components/feedback";
 import { RxDropdownMenu } from "react-icons/rx";
 import Navbar from "@/components/Navbar";
-
+import submitRatingFunc from "@/custom-functions/rating/submitRating"
+import submitFeedbackFunc from '@/custom-functions/rating/submitFeedback'
 const Feedback = () => {
   const details = {
     name: "",
@@ -31,8 +32,9 @@ const Feedback = () => {
     setRatings((prevRatings) => ({ ...prevRatings, [meal] : value }));
   };
 
-  const handleSubmitFeedback = () => {
-    console.log("Feedback:", ratings); // To print ratings on Conole. 
+  const handleSubmitRating = () => {
+    //console.log("Feedback:", ratings); // To print ratings on Browser Console. 
+    submitRatingFunc(selectedDay, ratings);
     //Reset all ratings to zero
     setRatings({
       BREAKFAST: 0,
@@ -41,6 +43,11 @@ const Feedback = () => {
       DINNER: 0,
     });
   };
+ const feedbackRef = useRef<any>("");
+ const handleSubmitFeedback = ()=>{
+  submitFeedbackFunc(feedbackRef.current.value);
+  feedbackRef.current.value="";
+ };
 
   return (
     <>
@@ -53,7 +60,7 @@ const Feedback = () => {
             <span>{selectedDay}</span>
           </summary>
           <ul className="menu dropdown-content rounded-box z-[1] w-full p-2 shadow-2xl bg-indigo-400 text-white">
-            {["Today", "Yesterday", "Day Before Yesterday"].map((day) => (
+            {["Today", "Yesterday"].map((day) => (
               <li className="group" key={day}>
                 <a
                   className="block py-2 px-4 rounded-md transition-all duration-300 ease-in-out transform group-hover:bg-purple-700 group-hover:scale-105 cursor-pointer"
@@ -91,9 +98,9 @@ const Feedback = () => {
         <div className="w-3/4 flex flex-row justify-center">
           <button
             className="btn btn-primary bg-purple-500 hover:bg-purple-800 text-white border-none"
-            onClick={handleSubmitFeedback}
+            onClick={handleSubmitRating}
           >
-            Submit Feedback
+            Submit Rating
           </button>
           {/* Here I override the CSS of the daisy ui button with classes btn and btn-primary with my tailwind css*/}
         </div>
@@ -101,12 +108,14 @@ const Feedback = () => {
 
       <div className="w-80 mx-auto mt-10">
         <textarea
-          placeholder="Write the complaint here if any..."
+          placeholder="Write your Suggestions here if any..."
           className="textarea textarea-bordered w-80 h-40 p-4 mx-auto text-lg border-purple-500 rounded-lg focus:outline-none focus:border-purple-700"
           style={{ resize: "none" }}
+          ref={feedbackRef}
         ></textarea>
-        <button className="btn btn-primary bg-purple-500 text-white hover:bg-purple-800 border-none mt-4">
-          Submit Complaint
+        <button className="btn btn-primary bg-purple-500 text-white hover:bg-purple-800 border-none my-4"
+        onClick={handleSubmitFeedback}>
+          Submit Feedback
         </button>
       </div>
     </>

@@ -9,7 +9,10 @@ const Suggestion = ()=>{
     return(
         <>
         <Navbar details={details}/>
-        <Suggest/>
+        {/* <Suggest/> */}
+        <div className='h-96 w-auto flex items-center justify-center'>
+            <p className='text-5xl font-semibold text-purple-700'>Coming Soon....</p>
+        </div>
         </>
     );
 };
