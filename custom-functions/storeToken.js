@@ -11,6 +11,7 @@ export default async function storeToken(StoreTokenRequest) {
     sameSite: "strict",
     secure: isProduction,
     path: "/",
+    maxAge: 30 * 24 * 60 * 60, //30 days in seconds
   });
 
   cookies().set({
@@ -20,5 +21,6 @@ export default async function storeToken(StoreTokenRequest) {
     sameSite: "strict",
     secure: isProduction,
     path: "/",
+    maxAge: 30 * 24 * 60 * 60, //30 days in seconds
   });
 }
