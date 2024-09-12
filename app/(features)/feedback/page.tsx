@@ -5,6 +5,7 @@ import { RxDropdownMenu } from "react-icons/rx";
 import Navbar from "@/components/Navbar";
 import submitRatingFunc from "@/custom-functions/rating/submitRating"
 import submitFeedbackFunc from '@/custom-functions/rating/submitFeedback'
+import toast, { Toaster } from "react-hot-toast";
 const Feedback = () => {
   const details = {
     name: "",
@@ -34,7 +35,12 @@ const Feedback = () => {
 
   const handleSubmitRating = () => {
     //console.log("Feedback:", ratings); // To print ratings on Browser Console. 
-    submitRatingFunc(selectedDay, ratings);
+    if(selectedDay=="Today" || selectedDay=="Yesterday"){
+      submitRatingFunc(selectedDay, ratings);
+      toast.success("Thanks for the ratings!");
+    }else{
+      toast.error("To submit ratings, first select the date.");
+    }
     //Reset all ratings to zero
     setRatings({
       BREAKFAST: 0,
@@ -45,7 +51,13 @@ const Feedback = () => {
   };
  const feedbackRef = useRef<any>("");
  const handleSubmitFeedback = ()=>{
-  submitFeedbackFunc(feedbackRef.current.value);
+  if(selectedDay=="Today" || selectedDay=="Yesterday"){
+      submitFeedbackFunc(feedbackRef.current.value);
+      toast.success("Thanks for the feedback! We will work on it.");
+    }else{
+      toast.error("To submit feedback, first select the date.");
+    }
+  
   feedbackRef.current.value="";
  };
 
@@ -117,6 +129,12 @@ const Feedback = () => {
         onClick={handleSubmitFeedback}>
           Submit Feedback
         </button>
+        <Toaster
+        toastOptions={{
+          // Define default options
+          duration: 3000,
+        }}
+      />
       </div>
     </>
   );
