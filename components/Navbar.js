@@ -1,6 +1,41 @@
 import React from "react";
 import Link from "next/link";
 
+const navItems = [
+  {
+    href: "/today-menu",
+    name: "Today Menu",
+  },
+  {
+    href: "/notice-board",
+    name: "Notice Board",
+  },
+  {
+    href: "/full-menu",
+    name: "Full Menu",
+  },
+  {
+    href: "/feedback",
+    name: "Feedback",
+  },
+  {
+    href: "/boarder-info",
+    name: "Student's Info",
+  },
+  {
+    href: "/staff",
+    name: "Mess Staff",
+  },
+  {
+    href: "/suggestion",
+    name: "Food Item Suggestion",
+  },
+  {
+    href: "/profile",
+    name: "My Profile",
+  },
+];
+
 const Navbar = ({ details }) => {
   const pageTitle = `${details.message} ${details.name} `;
   return (
@@ -29,33 +64,13 @@ const Navbar = ({ details }) => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-2xl border-2 z-[1] mt-3 w-72 p-2 shadow space-y-4"
             >
               {" "}
-              <li>
-                <Link href="/today-menu">Today Menu</Link>
-              </li>
-              <li>
-                <Link href="/notice-board">Notice Board</Link>
-              </li>
-              <li>
-                <Link href="/full-menu">Full Menu</Link>
-              </li>
-              <li>
-                <Link href="/feedback">Feedback</Link>
-              </li>
-              <li>
-                <Link href="/boarder-info">Student Info</Link>
-              </li>
-              <li>
-                <Link href="/staff">Mess Staff</Link>
-              </li>
-              <li>
-                <Link href="/suggestion">Food Item Suggestion</Link>
-              </li>
-              <li>
-                <Link href="/profile">My Profile</Link>
-              </li>
-              <li>
-                <Link href="/change-menu">Change Menu (Only for Admin)</Link>
-              </li>
+              {navItems.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <Link href={item.href}>{item.name}</Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <a className="text-xl font-semibold lg:block hidden">{pageTitle}</a>
@@ -65,33 +80,13 @@ const Navbar = ({ details }) => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href="/today-menu">Today Menu</Link>
-            </li>
-            <li>
-              <Link href="/notice-board">Notice Board</Link>
-            </li>
-            <li>
-              <Link href="/full-menu">Full Menu</Link>
-            </li>
-            <li>
-              <Link href="/feedback">Feedback</Link>
-            </li>
-            <li>
-              <Link href="/boarder-info">Student Info</Link>
-            </li>
-            <li>
-              <Link href="/staff">Mess Staff</Link>
-            </li>
-            <li>
-              <Link href="/suggestion">Food Item Suggestion</Link>
-            </li>
-            <li>
-              <Link href="/profile">My Profile</Link>
-            </li>
-            <li>
-              <Link href="/change-menu">Change Menu (Only for Admin)</Link>
-            </li>
+            {navItems.map((item, index) => {
+              return (
+                <li key={index}>
+                  <Link href={item.href}>{item.name}</Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="navbar-end">

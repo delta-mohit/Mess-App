@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   FaUtensils,
   FaHamburger,
@@ -8,14 +8,12 @@ import {
 } from "react-icons/fa";
 import { FaCircleChevronRight } from "react-icons/fa6";
 import getMenu from "@/custom-functions/getMenuFunc";
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown } from "react-icons/fi";
 const Fullmenu = () => {
   const [menu, setMenu] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  let noDaySelected = "Click Here to Choose the Day";
-  const [selectedDay, setSelectedDay] = useState(
-    noDaySelected
-  );
+  let noDaySelected = "Select the Day";
+  const [selectedDay, setSelectedDay] = useState(noDaySelected);
   const detailsRef = useRef(null);
   const handleDaySelection = (day) => {
     setSelectedDay(day);
@@ -49,9 +47,9 @@ const Fullmenu = () => {
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       <div className="flex justify-center items-center h-[20%]">
         <details className="dropdown w-3/4" ref={detailsRef}>
-          <summary className="btn m-1 w-full bg-purple-500 text-white text-sm flex justify-center items-center space-x-2 cursor-pointer">
+          <summary className="btn m-1 w-full bg-purple-500 text-white text-sm flex justify-center items-center space-x-2 cursor-pointer relative">
             <div className="w-[80%]">{selectedDay}</div>
-            <FiChevronDown className="h-8 w-8" />
+            <FiChevronDown className="h-8 w-8 absolute right-4" />
           </summary>
           <ul className="menu dropdown-content rounded-box z-[1] w-full p-2 shadow-2xl bg-indigo-400 text-white">
             {[
@@ -119,30 +117,35 @@ const Fullmenu = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-700 bg-opacity-60 flex items-center justify-center z-50">
           <div className="h-1/2 w-full bg-white p-6 mx-4 rounded-lg shadow-lg sm:h-3/4 sm:w-1/2 overflow-auto flex flex-col">
-            {
-              (()=>{
-                if(selectedDay== noDaySelected){
-                 return <span className="text-center text-lg">Please Choose an Day from dropdown to see the Menu</span>
-                }else if(menu.length == 0){
-                  return <span className="loading loading-spinner loading-lg mx-auto h-40"></span>
-                }else{
-                  return <>
-                <ul className="grid grid-cols-2 gap-4 list-disc list-inside">
-                  {menu.map((item, index) => (
-                    <li key={index}>{item.name}</li>
-                  ))}
-                </ul>
-                
-              </>
-                }
-              })()
-            }
+            {(() => {
+              if (selectedDay == noDaySelected) {
+                return (
+                  <span className="text-center text-lg">
+                    Please Choose an Day from dropdown to see the Menu
+                  </span>
+                );
+              } else if (menu.length == 0) {
+                return (
+                  <span className="loading loading-spinner loading-lg mx-auto h-40"></span>
+                );
+              } else {
+                return (
+                  <>
+                    <ul className="grid grid-cols-2 gap-4 list-disc list-inside">
+                      {menu.map((item, index) => (
+                        <li key={index}>{item.name}</li>
+                      ))}
+                    </ul>
+                  </>
+                );
+              }
+            })()}
             <button
-                  className="btn mt-6 bg-purple-500 text-white text-lg w-1/2"
-                  onClick={closeModal}
-                >
-                  Close Menu
-                </button>
+              className="btn mt-6 bg-purple-500 text-white text-lg w-1/2"
+              onClick={closeModal}
+            >
+              Close Menu
+            </button>
           </div>
         </div>
       )}
