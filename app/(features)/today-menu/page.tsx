@@ -10,8 +10,7 @@ const page = () => {
   const today = new Date();
   const dayNumber = today.getDay();
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  //const dayName = days[dayNumber];
-  const dayName = "Friday";
+  const dayName = days[dayNumber];
   return (
     <>
     <Navbar details = {details}/>
