@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAppSelector } from "@/lib/hooks";
+import UserNameGetter from "./userNameGetter";
 
 const navItems = [
   {
@@ -37,9 +40,18 @@ const navItems = [
 ];
 
 const Navbar = ({ details }) => {
-  const pageTitle = `${details.message} ${details.name} `;
+  const [isClient, setisClient] = useState(false); //taaki ye sirf client side pe render ho. Next js me server side and client side dono pe run hota hai and iss wale component me dono pe run hone se hydration error aa raha tha. Issliye mein socha ki isko client side pe run karte hai
+  useEffect(() => {
+    setisClient(true);
+  }, []);
+
+  const name = useAppSelector((store) => store.userName);
+  const pageTitle = `${details.message}`;
+
   return (
     <>
+      {isClient && !name && <UserNameGetter />}
+      {/*We don't have need of this UserNameGetter here because I am not using "Name" right now in my website. But, I need to use states in future that's why I am keeping this in my code */}
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -73,10 +85,12 @@ const Navbar = ({ details }) => {
               })}
             </ul>
           </div>
-          <a className="text-xl font-semibold lg:block hidden">{pageTitle}</a>
+          {isClient && (
+            <a className="text-xl font-semibold lg:block hidden">{pageTitle}</a>
+          )}
         </div>
         <div className="navbar-center lg:hidden flex">
-          <a className="text-xl font-semibold">{pageTitle}</a>
+          {isClient && <a className="text-xl font-semibold">{pageTitle}</a>}
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">

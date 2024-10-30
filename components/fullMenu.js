@@ -116,7 +116,7 @@ const Fullmenu = () => {
       {/* Open Modal Logic */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-700 bg-opacity-60 flex items-center justify-center z-50">
-          <div className="h-1/2 w-full bg-white p-6 mx-4 rounded-lg shadow-lg sm:h-3/4 sm:w-1/2 overflow-auto flex flex-col">
+          <div className="h-1/2 w-full bg-white p-6 mx-4 rounded-lg shadow-lg sm:h-3/4 sm:w-1/2 overflow-auto flex flex-col relative">
             {(() => {
               if (selectedDay == noDaySelected) {
                 return (
@@ -141,7 +141,7 @@ const Fullmenu = () => {
               }
             })()}
             <button
-              className="btn mt-6 bg-purple-500 text-white text-lg w-1/2"
+              className="p-2 rounded-lg hover:bg-purple-700 mt-6 bg-purple-500 text-white text-lg w-3/4 absolute bottom-4 left-1/2 -translate-x-1/2 "
               onClick={closeModal}
             >
               Close Menu

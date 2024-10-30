@@ -4,8 +4,8 @@ import Menu from "@/components/menu"
 
 const page = () => {
   const details = {
-      name : "userName",
-      message : "Welcome,"
+      name : "",
+      message : "Today Menu"
   };
   const today = new Date();
   const dayNumber = today.getDay();

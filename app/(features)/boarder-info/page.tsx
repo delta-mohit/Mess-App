@@ -11,7 +11,7 @@ const Info = () => {
   });
   const details = {
     name: "",
-    message: "Boarder's Information",
+    message: "Boarder's Info",
   };
   let imgUrl = "";
   let inputRollNumber = useRef<any>("");
