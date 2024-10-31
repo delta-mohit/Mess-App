@@ -15,7 +15,7 @@ const Messstaff = () => {
     <div className="warden mt-12">
       <p className='text-center text-purple-700 text-3xl font-semibold'>MESS WARDEN</p>
       <div className='grid grid-cols-1 justify-items-center mt-8'>
-        <div className='w-3/4'>
+        <div className='w-3/4 md:w-1/3'>
           <div className='flex flex-col justify-center items-center shadow-xl shadow-slate-500 p-4'>
             <img src='/static/images/image.png' className='w-3/4 h-auto'></img>
             <p className='text-center text-xl font-medium mb-4'>Prof. Mahendra Reddy Vanteru</p>
