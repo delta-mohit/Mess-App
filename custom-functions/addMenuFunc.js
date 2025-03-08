@@ -4,11 +4,12 @@ import {
   accessToken,
   refreshToken,
 } from "@/custom-functions/getTokenFromCookies";
+import { baseURL } from "@/app/constants";
 async function add(item, day, time) {
   let response;
   try {
     response = await axios.post(
-      "https://rp-mess-website-backend.vercel.app/api/menu",
+      `${baseURL}/api/menu`,
       {
         day: day.toString().toUpperCase(),
         timeSlot: time.toString().toUpperCase(),

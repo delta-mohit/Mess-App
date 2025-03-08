@@ -1,4 +1,5 @@
 "use server";
+import {baseURL} from "@/app/constants"
 import axios from "axios";
 import {
   accessToken,
@@ -14,7 +15,7 @@ async function deleteFunc(id) {
       },
     };
     response = await axios.delete(
-      `https://rp-mess-website-backend.vercel.app/api/menu?id=${id}`,
+      `${baseURL}/api/menu?id=${id}`,
       requestOptions
     );
     console.log("Post deleted:", id);
