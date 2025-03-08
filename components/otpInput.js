@@ -36,6 +36,12 @@ function Otp() {
     // Handle the resend action here
   };
 
+  const removeTempToken = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("tempToken");
+    }
+  };
+
   const handleSubmit = async () => {
     setloading(true);
     let x = otp.current.value;
@@ -47,7 +53,7 @@ function Otp() {
       toast.success("Email Verified Successfully! Now Please Log In", {
         duration: 6000,
       });
-      await deleteCookies("tempToken"); //deleting temp token because hum register ho chuke hai so uski zarurat nahi hai
+      removeTempToken(); //deleting temp token because hum register ho chuke hai so uski zarurat nahi hai
       router.push("/login");
     } else {
       if (code == 400) {

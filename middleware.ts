@@ -1,54 +1,60 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { UNAUTHORISED_RESPONSE } from "./app/constants";
 import getCookie from "@/custom-functions/isCookieFound";
 import { cookies } from "next/headers";
-// This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname;
-  const isPublicURL = path === "/login" || path === "/signup";
-  const isverifyPage = path === "/verifyEmail"; //special case
-  let check = await getCookie();
-  let istempUser = cookies().has("tempToken");
-  if (isverifyPage && !istempUser) {
-    if (check) {
-      // console.log(
-      //   "going to today menu because i am logged in but not allowed to go to verifyemail page"
-      // );
-      return NextResponse.redirect(new URL("/today-menu", request.url));
-    } else {
-      //console.log("going to login page because i am not looged in and also not allowed to go to verifyemail page");
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  } else if (isverifyPage && istempUser) {
-    if (check) {
-      return NextResponse.redirect(new URL("/today-menu", request.url));
-    } else {
-      //console.log("going to 'verify email page' because i am allowed ");
+
+const allowedApiPaths = ["/api/user/login", "/api/user/register"];
+
+const publicPaths = ["/login", "/signup"];
+const verifyEmailPage = "/verifyEmail";
+
+export async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+  const token = req.headers.get("Authorization");
+  const isApiRoute = path.startsWith("/api/");
+  const isPublicPage = publicPaths.includes(path);
+  const isVerifyPage = path === verifyEmailPage;
+  const isAuthenticated = await getCookie(); // Check user auth state
+  const isTempUser = cookies().has("tempToken");
+
+  // Backend: API Authentication Middleware
+  if (isApiRoute) {
+    if (allowedApiPaths.includes(path)) {
       return NextResponse.next();
     }
-  } else {
-    if (!isPublicURL && !check) {
-      //console.log("user is not authenticated");
-      return NextResponse.redirect(new URL("/login", request.url));
-    } else if (isPublicURL && check) {
-      //console.log("user is authenticated, let them go");
-      return NextResponse.redirect(new URL("/today-menu", request.url));
+    if (!token) {
+      console.log("No token found: from middleware");
+      return UNAUTHORISED_RESPONSE;
     }
+    return NextResponse.next();
   }
-  console.log(path);
+
+  // Frontend: User Authentication Middleware
+  if (isVerifyPage) {
+    if (isTempUser) {
+      return isAuthenticated
+        ? NextResponse.redirect(new URL("/today-menu", req.url))
+        : NextResponse.next();
+    }
+    return isAuthenticated
+      ? NextResponse.redirect(new URL("/today-menu", req.url))
+      : NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  if (!isPublicPage && !isAuthenticated) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+  if (isPublicPage && isAuthenticated) {
+    return NextResponse.redirect(new URL("/today-menu", req.url));
+  }
+
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// 🔹 Define middleware matching paths
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/api/:path*", // Apply to all API routes
+    "/((?!_next/static|_next/image|favicon.ico).*)", // Apply to all frontend pages except static assets
   ],
 };

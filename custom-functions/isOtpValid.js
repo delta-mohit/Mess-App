@@ -1,10 +1,17 @@
-"use server";
-import { cookies } from "next/headers";
+"use client";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
+
+const getTempToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("tempToken");
+  }
+  return null;
+};
+
 export default async function isOtpValid(otp) {
-  const token = cookies().get("tempToken");
-  console.log("tempToken: " + token.value);
+  const token = getTempToken();
+  console.log("tempToken: " + token);
   if (token == null) {
     console.log("tempToken is not found so signup again");
     return false;
@@ -13,7 +20,7 @@ export default async function isOtpValid(otp) {
     otp: otp,
   });
   const headers = {
-    Authorization: `Bearer ${token.value}`,
+    Authorization: `Bearer ${token}`,
   };
   let code;
   try {

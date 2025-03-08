@@ -7,7 +7,6 @@ import registerUser from "@/custom-functions/registerTheUser";
 import toast, { Toaster } from "react-hot-toast";
 import sendEmail from "@/custom-functions/sendEmail";
 const SignupForm = ({ loading, setloading }) => {
-  console.log(loading);
   const router = useRouter();
   const handleEnteredInfo = async (e) => {
     setloading(true);

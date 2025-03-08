@@ -1,7 +1,7 @@
-"use server";
+"use client";
 import { baseURL } from "@/app/constants";
 import axios from "axios";
-import { cookies } from "next/headers";
+import getAccessToken from "../getAccessTokenFromLocalStorage";
 const formatDate = (date) => {
   const day = String(date.getDate()).padStart(2, "0"); // Get day and pad with leading 0 if necessary
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed, so add 1 and pad with leading 0
@@ -11,7 +11,7 @@ const formatDate = (date) => {
 };
 
 const submitRatingFunc = async (day, ratings) => {
-  let token = cookies().get("accessToken")?.value;
+  
   const today = new Date();
   //console.log(day, ratings, today, token); /to check that data is coming in function is correct or not
   let date;
@@ -45,10 +45,11 @@ const submitRatingFunc = async (day, ratings) => {
     },
   ];
   let response;
+  const accessToken = getAccessToken;
   try {
     response = await axios.post(`${baseURL}/api/rating`, data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     console.log(response.data.data.message); //to print response of success on server console

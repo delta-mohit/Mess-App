@@ -1,6 +1,8 @@
+"use client"
 import axios from 'axios';
 import {baseURL} from '@/app/constants'
 import storeToken from "@/custom-functions/storeToken";
+import storeTokenInLocalStorage from './storeTokenInLocalStorage';
 export default async function getUserInfo(rollNumber, password){
     let response;
     const data={
@@ -16,6 +18,7 @@ export default async function getUserInfo(rollNumber, password){
         code = e.response.status;
     }
     if(code == 200){ //if the crediantials are correct then only it returns true and this condition is true
+        storeTokenInLocalStorage("accessAndRefreshToken",response.data.data.token);
         await storeToken(response.data.data.token);
     }
     return code;

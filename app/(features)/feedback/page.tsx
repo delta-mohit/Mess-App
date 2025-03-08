@@ -33,10 +33,10 @@ const Feedback = () => {
     setRatings((prevRatings) => ({ ...prevRatings, [meal] : value }));
   };
 
-  const handleSubmitRating = () => {
-    //console.log("Feedback:", ratings); // To print ratings on Browser Console. 
+  const handleSubmitRating = async() => {
+   
     if(selectedDay=="Today" || selectedDay=="Yesterday"){
-      submitRatingFunc(selectedDay, ratings);
+      await submitRatingFunc(selectedDay, ratings);
       toast.success("Thanks for the ratings!");
     }else{
       toast.error("To submit ratings, first select the date.");

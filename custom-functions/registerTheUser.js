@@ -1,7 +1,8 @@
-"use server";
+"use client";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
 import storeTempToken from "@/custom-functions/storeTempToken";
+import storeTokenInLocalStorage from "@/custom-functions/storeTokenInLocalStorage"
 export default async function registerUser(name, rollNumber, password) {
   const data = {
     rollNumber: rollNumber,
@@ -17,6 +18,7 @@ export default async function registerUser(name, rollNumber, password) {
       response.data.data.token
     );
     storeTempToken(response.data.data.token);
+    storeTokenInLocalStorage("tempToken", response.data.data.token);
     code = response.status;
     return code;
   } catch (error) {

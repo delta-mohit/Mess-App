@@ -1,10 +1,9 @@
-"use server";
+"use client";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
-import { cookies } from "next/headers";
-
+import getAccessToken from "./getAccessTokenFromLocalStorage";
 const getBoarderInfo = async (roll) => {
-  let accessToken = cookies().get("accessToken")?.value;
+  let accessToken = getAccessToken();
   let response;
   try {
     response = await axios.get(
@@ -15,6 +14,7 @@ const getBoarderInfo = async (roll) => {
         },
       }
     );
+    
     return response.data.data;
   } catch (e) {
     return { name: "User Not Found", rollNumber: "", email: "" };

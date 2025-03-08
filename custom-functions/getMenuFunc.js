@@ -1,14 +1,12 @@
-"use server";
+"use client";
 import axios from "axios";
-import {
-  accessToken,
-  refreshToken,
-} from "@/custom-functions/getTokenFromCookies";
+import getAccessToken from "./getAccessTokenFromLocalStorage";
 import updateToken from "@/custom-functions/updateTokenWhenExpired"
 import { baseURL } from "@/app/constants";
 
 // Helper function to fetch menu data
 async function fetchMenuData(day, slot) {
+  const accessToken = getAccessToken();
   day = day.toUpperCase();
   const requestOptions = {
     headers: {

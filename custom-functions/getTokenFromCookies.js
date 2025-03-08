@@ -1,3 +1,4 @@
+"use server"
 import { cookies } from "next/headers";
 // These might be wrong because these tokens are get stored in some variables.
 // But We need to update token on every visit or reload. So, using function instead of tokens

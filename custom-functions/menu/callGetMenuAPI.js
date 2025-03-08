@@ -1,12 +1,18 @@
-"use server";
+"use client";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
-import { cookies } from "next/headers";
+import getAccessToken from "@/custom-functions/getAccessTokenFromLocalStorage"
 export default async function getMenu(day, timeSlot) {
   let res;
+  if (typeof window === "undefined") return []; // Prevent server-side execution
+
   let items = [];
-  //let accessToken = getAccessToken()?.value;
-  let accessToken = cookies().get("accessToken")?.value;
+  let accessToken = getAccessToken(); // Access localStorage safely
+
+  if (!accessToken) {
+    console.error("Access token not found");
+    return [];
+  }
   try {
     res = await axios.get(
       `${baseURL}/api/menu?day=${day}&timeSlot=${timeSlot}&category=MAIN_COURSE`,

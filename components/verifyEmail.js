@@ -1,8 +1,17 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Otp from "@/components/otpInput";
-import getTempUserDetails from "@/custom-functions/getTempUserDetails";
-const EmailVerification = async () => {
-  const { name, email } = await getTempUserDetails();
+import {getTempUserDetails} from "@/custom-functions/getTempUserDetails"
+const EmailVerification =  () => {
+  const [userDetails, setUserDetails] = useState({ name: "", email: "" });
+  useEffect(() => {
+    async function fetchUserDetails() {
+      const details = await getTempUserDetails();
+      setUserDetails(details);
+    }
+    fetchUserDetails();
+  }, []);
+ 
   return (
     <section className="max-w-2xl mx-auto bg-white border-2 border-blue-500">
       <div className="h-[200px] bg-[#365CCE] w-full text-white flex items-center justify-center flex-col gap-5">
@@ -22,12 +31,12 @@ const EmailVerification = async () => {
       </div>
       <main className="mt-8 px-5 sm:px-10">
         <h2 className="text-gray-700 ">
-          Hello <span className="font-bold">{name}</span>,
+          Hello <span className="font-bold">{userDetails.name}</span>,
         </h2>
         <p className="mt-2 leading-loose text-gray-600 ">
           Please enter the OTP which you received on{" "}
           <span className="italic">
-            &quot;{email}
+            &quot;{userDetails.email}
             &quot;
           </span>
         </p>

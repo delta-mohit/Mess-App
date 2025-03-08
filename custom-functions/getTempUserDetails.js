@@ -1,14 +1,25 @@
+"use client"
 import axios from "axios";
 import { baseURL } from "@/app/constants";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
+// import { tempToken } from "./getTokenFromCookies";
 
-export default async function getTempUserDetails() {
-  let tempToken = cookies().get("tempToken");
+const getTempToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("tempToken");
+  }
+  return null;
+};
+
+export async function getTempUserDetails() {
+  // let tempToken = cookies().get("tempToken");
   let name, email;
+  const tempToken = getTempToken();
+
   try {
     let response = await axios.get(`${baseURL}/api/verification/user`, {
       headers: {
-        Authorization: `Bearer ${tempToken.value}`,
+        Authorization: `Bearer ${tempToken}`,
       },
     });
     name = response.data.data.name;
@@ -20,3 +31,4 @@ export default async function getTempUserDetails() {
   }
   return { name, email };
 }
+

@@ -1,10 +1,9 @@
-"use server";
+"use client";
 import axios from "axios";
 import { baseURL } from "@/app/constants";
-import { cookies } from "next/headers";
-
+import getAccessToken from "./getAccessTokenFromLocalStorage";
 const getProfileData = async () => {
-  let accessToken = cookies().get("accessToken")?.value;
+  let accessToken = getAccessToken();
   let response;
   try {
     response = await axios.get(`${baseURL}/api/user/details`, {
@@ -12,6 +11,7 @@ const getProfileData = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    
   } catch (e) {
     console.log(
       "There is some error in getting User details to show on  Student Info page"

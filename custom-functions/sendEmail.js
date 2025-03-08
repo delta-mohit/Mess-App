@@ -1,18 +1,28 @@
-"use server";
+"use client";
 import { baseURL } from "@/app/constants";
 import axios from "axios";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
+
+const getTempToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("tempToken");
+  }
+  return null;
+};
+
 
 const sendEmail = async () => {
   console.log("send email file me aa gaya hu");
   try {
     // Extract the temporary token from cookies
-    const tempToken = cookies().get("tempToken");
-    console.log("temp token mil gaya hai :- ", tempToken);
+    // const tempToken = cookies().get("tempToken");
+    const tempToken = getTempToken();
+    
     // Make the API request
+    
     const response = await axios.get(`${baseURL}/api/verification/mail`, {
       headers: {
-        Authorization: `Bearer ${tempToken.value}`,
+        Authorization: `Bearer ${tempToken}`,
       },
     });
 
